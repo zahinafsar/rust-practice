@@ -1,18 +1,21 @@
 struct Solution;
 
 fn main() {
-    let condi1 = Solution::search_insert(vec![1, 2, 3, 4, 5], 4);
-    let condi2 = Solution::search_insert(vec![1, 2, 3, 5, 6], 4);
-    println!("{} {}", condi1, condi2);
+    let res1 = Solution::plus_one(vec![1, 2, 3]);
+    assert_eq!(res1, [1, 2, 4]);
+
+    let res2 = Solution::plus_one(vec![9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
+    assert_eq!(res2, [9, 8, 7, 6, 5, 4, 3, 2, 1, 1]);
 }
 
 impl Solution {
-    pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
-        for i in 0..nums.len() {
-            if target <= nums[i] {
-                return i as i32;
-            }
-        }
-        return nums.len() as i32;
+    pub fn plus_one(digits: Vec<i32>) -> Vec<i32> {
+        let digits_in_string: String = digits.iter().map(|x| x.to_string()).collect();
+        let digits_in_number: i128 = digits_in_string.parse().unwrap();
+        return (digits_in_number + 1)
+            .to_string()
+            .chars()
+            .map(|x| x.to_digit(10).unwrap() as i32)
+            .collect();
     }
 }
